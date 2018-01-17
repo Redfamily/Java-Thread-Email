@@ -52,7 +52,7 @@ public class RunnableEmail implements Runnable
             String receiver = entry.getKey();
             String message = entry.getValue();
             
-            System.out.println("\nThread " + this.threadname  +"\n Mengirim ke : " + receiver + "\nPesan : " + message);
+            System.out.println("\nThread " + this.threadname  +"\n Mengirim ke : " + receiver);
             
             boolean sendOneEmail = this.emailSender.sendOneEmail(receiver, message);
             

@@ -5,6 +5,9 @@
  */
 package id.ac.polban.jtk.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.TreeMap;
 
 
@@ -21,9 +24,8 @@ public class MainClass
      */
     public static void addMessageTo(TreeMap<String, String> messenger, String receiver)
     {
-       String generalMessage = "Anda telah mendaftar sebagai user portal Tenaga Kerja di PT Oil dan Gaass by Tugas OOP";
-       String message = String.join(" ", "Hai", receiver, "Terimakasih", generalMessage);
-       messenger.put(receiver, generalMessage);
+       String message = TemplateEmail.getEmailContent(receiver);
+       messenger.put(receiver, message);
     }
     /**
      * @param args the command line arguments
@@ -39,35 +41,78 @@ public class MainClass
         
        /**
         * Penerima dan Pesan
+        */     
+       List<String> listEmail = new ArrayList<>();
+       listEmail.add("mufid.jamaluddin.tif16@polban.ac.id"); // 1
+       listEmail.add("gerryagustian97@gmail.com"); // 2
+       listEmail.add("mufid.jamaluddin@gmail.com"); // 3
+       listEmail.add("web.dianait@gmail.com"); // 4
+       listEmail.add("azuregenzo@gmail.com"); // 5
+       listEmail.add("jeremia.geraldi.tif16@polban.ac.id"); // 6
+       listEmail.add("kivlan.aziz.tif16@polban.ac.id"); // 7
+       listEmail.add("naufal.muntaaza.tif16@polban.ac.id"); // 8
+       listEmail.add("said.alfakhri.tif16@polban.ac.id"); // 9
+       listEmail.add("reza.dwi.tif16@polban.ac.id"); // 10
+       
+    //   Random rand = new Random();
+       
+    //   for(int i=0; i<990; i++)
+    //        listEmail.add(rand + "@auauauauauua");
+       
+       
+       
+       /**
+        * 5 Core
         */
-       TreeMap<String, String> messengerOne;
-       TreeMap<String, String> messengerTwo;
-       messengerOne = new TreeMap<>();
-       messengerTwo = new TreeMap<>();
-            
-       addMessageTo(messengerOne, "mufid.jamaluddin.tif16@polban.ac.id");
-       addMessageTo(messengerOne, "gerryagustian97@gmail.com");
-       addMessageTo(messengerOne, "mufid.jamaluddin@gmail.com");
-       addMessageTo(messengerOne, "web.dianait@gmail.com");
-       addMessageTo(messengerTwo, "mufid.jamaluddin.tif16@polban.ac.id");
-       addMessageTo(messengerTwo, "azuregenzo@gmail.com");
-       addMessageTo(messengerTwo, "jeremia.geraldi.tif16@polban.ac.id");
-       addMessageTo(messengerOne, "web.dianait@gmail.com");
-   
+       TreeMap<String, String> messengerOne = new TreeMap<>();
+       TreeMap<String, String> messengerTwo = new TreeMap<>();
+       TreeMap<String, String> messengerThree = new TreeMap<>();
+       TreeMap<String, String> messengerFour = new TreeMap<>();
+       TreeMap<String, String> messengerFive = new TreeMap<>();
+       
+       int count = 0;
+       for(String receiver : listEmail)
+       {
+           count++;
+           int kel = count % 5;
+           
+           switch(kel)
+           {
+               case 0:
+                   addMessageTo(messengerOne, receiver);
+                   break;
+               case 1:
+                   addMessageTo(messengerTwo, receiver);
+                   break;
+               case 2:
+                   addMessageTo(messengerThree, receiver);
+                   break;
+               case 3:
+                   addMessageTo(messengerFour, receiver);
+                   break;
+               case 4:
+                   addMessageTo(messengerFive, receiver);
+                   break;
+           }
+       }
+       
        /**
         * Thread
         */
-       RunnableEmail runnableOne = new RunnableEmail(from, host, password, messengerOne, "1");
-       RunnableEmail runnableTwo = new RunnableEmail(from, host, password, messengerTwo, "2");
+       RunnableEmail runnable[] = new RunnableEmail[5];
+       runnable[0] = new RunnableEmail(from, host, password, messengerOne, "1");
+       runnable[1] = new RunnableEmail(from, host, password, messengerTwo, "2");
+       runnable[2] = new RunnableEmail(from, host, password, messengerThree, "3");
+       runnable[3] = new RunnableEmail(from, host, password, messengerFour, "4");
+       runnable[4] = new RunnableEmail(from, host, password, messengerFive, "5");
        
-       Thread threadOne;
-       Thread threadTwo;
-
-       threadOne = new Thread(runnableOne);
-
-       threadTwo = new Thread(runnableTwo);
+       Thread thread[] = new Thread[5];
        
-       threadOne.start();
-       threadTwo.start();
+       for(int i=0; i<5; i++)
+            thread[i] = new Thread(runnable[i]);
+       
+       for(int i=0; i<5; i++)
+            thread[i].start();
+       
    }
 }

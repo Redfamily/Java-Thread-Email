@@ -220,7 +220,7 @@ public class EmailSender
             
             this.mimeMessage.setRecipient(Message.RecipientType.TO, toAddress);
             this.mimeMessage.setSubject(String.join(" ","Hi", receiver));
-            this.mimeMessage.setText(receiver);
+            this.mimeMessage.setContent(message, "text/html");
             // message.setContent("<h1>sending html mail check</h1>","text/html" );  
             this.transport.sendMessage(this.mimeMessage, this.mimeMessage.getRecipients(Message.RecipientType.TO));
                 
