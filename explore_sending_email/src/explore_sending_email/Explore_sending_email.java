@@ -21,19 +21,19 @@ public class Explore_sending_email {
      */
     public static void main(String[] args) {
        //from diisi email pengirim
-       String from = "contohemail@gmail.com"; //contoh, ganti dengan email masing2
+       String from = "gerryagustian97@gmail.com"; //contoh, ganti dengan email masing2
        
        //password diisi password email pengirim
-       String password = "inicontohpassword"; //contoh, ganti dengan password masing2
+       String password = "azuregenzo"; //contoh, ganti dengan password masing2
        String message = "test";
        
        //to diisi email2 recipient
-       String[] to = {"azuregenzo@gmail.com", "gerry.agustian.tif16@polban.ac.id"};
-       /*String[] to = new String [50];
-       for(int i = 0; i < 50; i++){
+       //String[] to = {"azuregenzo@gmail.com", "gerry.agustian.tif16@polban.ac.id"};
+       String[] to = new String [5];
+       for(int i = 0; i < 5; i++){
            to[i] = "azuregenzo@gmail.com";
-       }*/
-       
+       }
+       System.out.println(Arrays.toString(to));
        if(emailSender.sendMail(from, password, message, to)){
            System.out.println("email sent");
        }

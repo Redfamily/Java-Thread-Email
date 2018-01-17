@@ -44,16 +44,23 @@ public class emailSender {
             }
             
             //loop for set the message recipient
-            for(int i=0; i< toAddress.length; i++){
+            /*for(int i=0; i < toAddress.length; i++){
                 mimeMessage.addRecipient(Message.RecipientType.TO, toAddress[i]);
-            }
-            
-            mimeMessage.setSubject("coba javamail api");
-            mimeMessage.setText(message);
-            
+            }*/
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, password);
-            transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+            for(int i = 0; i < toAddress.length; i++){
+                mimeMessage.setRecipient(Message.RecipientType.TO, toAddress[i]);
+                mimeMessage.setSubject(String.format("subject %d", i));
+                mimeMessage.setText(message);
+                transport.sendMessage(mimeMessage, mimeMessage.getRecipients(Message.RecipientType.TO));
+            }
+            //mimeMessage.setSubject("coba javamail api");
+            /*mimeMessage.setText(message);
+            
+            *Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, password);
+            transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());*/
             transport.close();
             return true;
         }
