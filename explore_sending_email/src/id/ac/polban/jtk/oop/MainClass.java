@@ -41,6 +41,7 @@ public class MainClass
         
        /**
         * Penerima dan Pesan
+        * ke 1000 user
         */     
        List<String> listEmail = new ArrayList<>();
        listEmail.add("mufid.jamaluddin.tif16@polban.ac.id"); // 1
@@ -53,11 +54,11 @@ public class MainClass
        listEmail.add("naufal.muntaaza.tif16@polban.ac.id"); // 8
        listEmail.add("said.alfakhri.tif16@polban.ac.id"); // 9
        listEmail.add("reza.dwi.tif16@polban.ac.id"); // 10
+    
+       Random rand = new Random();
        
-    //   Random rand = new Random();
-       
-    //   for(int i=0; i<990; i++)
-    //        listEmail.add(rand + "@auauauauauua");
+       for(int i=0; i<990; i++)
+            listEmail.add(rand + "@auauauauauua");
        
        
        
