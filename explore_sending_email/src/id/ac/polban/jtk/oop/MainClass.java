@@ -48,15 +48,17 @@ public class MainClass
        addMessageTo(messengerOne, "mufid.jamaluddin.tif16@polban.ac.id");
        addMessageTo(messengerOne, "gerryagustian97@gmail.com");
        addMessageTo(messengerOne, "mufid.jamaluddin@gmail.com");
+       addMessageTo(messengerOne, "web.dianait@gmail.com");
        addMessageTo(messengerTwo, "mufid.jamaluddin.tif16@polban.ac.id");
        addMessageTo(messengerTwo, "azuregenzo@gmail.com");
        addMessageTo(messengerTwo, "jeremia.geraldi.tif16@polban.ac.id");
+       addMessageTo(messengerOne, "web.dianait@gmail.com");
    
        /**
         * Thread
         */
-       RunnableEmail runnableOne = new RunnableEmail(from, host, password, messengerOne);
-       RunnableEmail runnableTwo = new RunnableEmail(from, host, password, messengerTwo);
+       RunnableEmail runnableOne = new RunnableEmail(from, host, password, messengerOne, "1");
+       RunnableEmail runnableTwo = new RunnableEmail(from, host, password, messengerTwo, "2");
        
        Thread threadOne;
        Thread threadTwo;

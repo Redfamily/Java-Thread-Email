@@ -20,6 +20,7 @@ public class RunnableEmail implements Runnable
     private final EmailSender emailSender;
     private final Map<String, String> messenger;
     private final Iterator iter;
+    private final String threadname;
     
     /**
      * Konstruktor
@@ -28,13 +29,14 @@ public class RunnableEmail implements Runnable
      * @param password 
      * @param messenger 
      */
-    public RunnableEmail(String from, String host, String password, Map<String, String> messenger)
+    public RunnableEmail(String from, String host, String password, Map<String, String> messenger, String threadName)
     {
         this.emailSender = new EmailSender(host, "587", from, password, "smtp");
         this.messenger = messenger;
         this.iter = this.messenger.entrySet().iterator();
         this.emailSender.prepareSendMail(this.messenger.size());
-        System.out.println("Thread Dibuka");
+        System.out.println("Thread " + threadName + " Dibuka");
+        this.threadname = threadName;
     }
     
     /**
@@ -50,18 +52,18 @@ public class RunnableEmail implements Runnable
             String receiver = entry.getKey();
             String message = entry.getValue();
             
-            System.out.println("Mengirim ke : " + receiver + "\nPesan : " + message);
+            System.out.println("\nThread " + this.threadname  +"\n Mengirim ke : " + receiver + "\nPesan : " + message);
             
             boolean sendOneEmail = this.emailSender.sendOneEmail(receiver, message);
             
             if(sendOneEmail)
-                System.out.println("Email ke" + receiver + "Terkirim");
+                System.out.println("Email ke " + receiver + " Terkirim");
             else
-                System.out.println("Email ke" + receiver + "Gagal");
+                System.out.println("Email ke " + receiver + " Gagal Terkirim");
         }
         if(!this.iter.hasNext())
         {
-            System.out.println("Thread Ditutup");
+            System.out.println("\nThread " + this.threadname + " Ditutup");
             this.emailSender.closeConnection();
             Thread.interrupted();
         }
