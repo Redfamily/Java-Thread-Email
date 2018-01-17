@@ -44,14 +44,14 @@ public class MainClass
        TreeMap<String, String> messengerTwo;
        messengerOne = new TreeMap<>();
        messengerTwo = new TreeMap<>();
-       
-       addMessageTo(messengerOne, "mufid.jamaluddin@gmail.com");
+            
        addMessageTo(messengerOne, "mufid.jamaluddin.tif16@polban.ac.id");
        addMessageTo(messengerOne, "gerryagustian97@gmail.com");
+       addMessageTo(messengerOne, "mufid.jamaluddin@gmail.com");
+       addMessageTo(messengerTwo, "mufid.jamaluddin.tif16@polban.ac.id");
        addMessageTo(messengerTwo, "azuregenzo@gmail.com");
        addMessageTo(messengerTwo, "jeremia.geraldi.tif16@polban.ac.id");
-       addMessageTo(messengerTwo, "mufid.jamaluddin.tif16@polban.ac.id");
-       
+   
        /**
         * Thread
         */

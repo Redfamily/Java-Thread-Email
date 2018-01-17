@@ -18,7 +18,7 @@ public class RunnableEmail implements Runnable
      * Atribut
      */
     private final EmailSender emailSender;
-    private Map<String, String> messenger;
+    private final Map<String, String> messenger;
     private final Iterator iter;
     
     /**
@@ -31,7 +31,6 @@ public class RunnableEmail implements Runnable
     public RunnableEmail(String from, String host, String password, Map<String, String> messenger)
     {
         this.emailSender = new EmailSender(host, "587", from, password, "smtp");
-        this.messenger = null;
         this.messenger = messenger;
         this.iter = this.messenger.entrySet().iterator();
         this.emailSender.prepareSendMail(this.messenger.size());
@@ -45,7 +44,7 @@ public class RunnableEmail implements Runnable
     @Override
     public void run()
     {
-        if(this.iter.hasNext()) 
+        while(this.iter.hasNext()) 
         {
             Map.Entry<String,String> entry = (Map.Entry<String,String>) iter.next();
             String receiver = entry.getKey();
@@ -59,10 +58,8 @@ public class RunnableEmail implements Runnable
                 System.out.println("Email ke" + receiver + "Terkirim");
             else
                 System.out.println("Email ke" + receiver + "Gagal");
-            
-            this.iter.remove();
         }
-        else
+        if(!this.iter.hasNext())
         {
             System.out.println("Thread Ditutup");
             this.emailSender.closeConnection();
