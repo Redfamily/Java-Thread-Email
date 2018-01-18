@@ -21,6 +21,7 @@ public class RunnableEmail implements Runnable
     private final Map<String, String> messenger;
     private final Iterator iter;
     private final String threadname;
+    private final boolean isConnect;
     
     /**
      * Konstruktor
@@ -28,15 +29,62 @@ public class RunnableEmail implements Runnable
      * @param host
      * @param password 
      * @param messenger 
+     * @param threadName 
      */
     public RunnableEmail(String from, String host, String password, Map<String, String> messenger, String threadName)
     {
         this.emailSender = new EmailSender(host, "587", from, password, "smtp");
         this.messenger = messenger;
         this.iter = this.messenger.entrySet().iterator();
-        this.emailSender.prepareSendMail(this.messenger.size());
+        this.isConnect = this.emailSender.prepareSendMail(this.messenger.size());
         System.out.println("Thread " + threadName + " Dibuka");
         this.threadname = threadName;
+    }
+    
+    /**
+     * Mengirimkan Email
+     */
+    public void sendAllEmail()
+    {
+        if(this.isConnect)
+        {
+            int failEmail = 0;
+
+            while(this.iter.hasNext()) 
+            {
+                Map.Entry<String,String> entry = (Map.Entry<String,String>) iter.next();
+                String receiver = entry.getKey();
+                String message = entry.getValue();
+
+               // System.out.println("\nThread " + this.threadname  +"\nMengirim ke : " + receiver);
+
+                boolean sendOneEmail = this.emailSender.sendOneEmail(receiver, message);
+
+                if(sendOneEmail)
+                {
+                    System.out.println("Thread " + this.threadname + " : Email ke " + receiver + " Terkirim");
+                }
+                else
+                {
+                    System.out.println("Thread " + this.threadname + " : Email ke " + receiver + " Gagal Terkirim");
+                    failEmail++;
+                }
+            }
+            if(!this.iter.hasNext())
+            {
+                int successEmail = this.messenger.size() - failEmail;
+                // pemberitahuan
+                System.out.println("\nThread " + this.threadname + " Ditutup");
+                System.out.println("Thread " + this.threadname + "- Terkirim \t\t: " + successEmail + " Email");
+                System.out.println("Thread " + this.threadname + "- Gagal Terkirim \t: " + failEmail + " Email");
+                // tututp koneksi email
+                this.emailSender.closeConnection();
+                // tutup thread
+                Thread.interrupted();
+            }
+        }
+        else
+            System.out.println("Gagal Mengirimkan " + this.messenger.size() + " Email Karena Masalah Koneksi");
     }
     
     /**
@@ -46,27 +94,7 @@ public class RunnableEmail implements Runnable
     @Override
     public void run()
     {
-        while(this.iter.hasNext()) 
-        {
-            Map.Entry<String,String> entry = (Map.Entry<String,String>) iter.next();
-            String receiver = entry.getKey();
-            String message = entry.getValue();
-            
-            System.out.println("\nThread " + this.threadname  +"\n Mengirim ke : " + receiver);
-            
-            boolean sendOneEmail = this.emailSender.sendOneEmail(receiver, message);
-            
-            if(sendOneEmail)
-                System.out.println("Email ke " + receiver + " Terkirim");
-            else
-                System.out.println("Email ke " + receiver + " Gagal Terkirim");
-        }
-        if(!this.iter.hasNext())
-        {
-            System.out.println("\nThread " + this.threadname + " Ditutup");
-            this.emailSender.closeConnection();
-            Thread.interrupted();
-        }
+        this.sendAllEmail();
     }
 
 }

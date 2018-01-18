@@ -7,7 +7,6 @@ package id.ac.polban.jtk.oop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.TreeMap;
 
 
@@ -54,13 +53,9 @@ public class MainClass
        listEmail.add("naufal.muntaaza.tif16@polban.ac.id"); // 8
        listEmail.add("said.alfakhri.tif16@polban.ac.id"); // 9
        listEmail.add("reza.dwi.tif16@polban.ac.id"); // 10
-    
-       Random rand = new Random();
        
-       for(int i=0; i<990; i++)
-            listEmail.add(rand + "@auauauauauua");
-       
-       
+      // for(int i=0; i<990; i++)
+      //      listEmail.add(i + "@auauauauauua");
        
        /**
         * 5 Core

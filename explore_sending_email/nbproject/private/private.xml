@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/AGS/Documents/Java-Thread-Email/explore_sending_email/src/explore_sending_email/Explore_sending_email.java</file>
-            <file>file:/C:/Users/AGS/Documents/Java-Thread-Email/explore_sending_email/src/explore_sending_email/emailSender.java</file>
+            <file>file:/C:/Users/mufidjamaluddin/Documents/NetBeansProjects/Java-Thread-Email/explore_sending_email/src/id/ac/polban/jtk/oop/RunnableEmail.java</file>
+            <file>file:/C:/Users/mufidjamaluddin/Documents/NetBeansProjects/Java-Thread-Email/explore_sending_email/src/id/ac/polban/jtk/oop/TemplateEmail.java</file>
+            <file>file:/C:/Users/mufidjamaluddin/Documents/NetBeansProjects/Java-Thread-Email/explore_sending_email/src/id/ac/polban/jtk/oop/EmailSender.java</file>
+            <file>file:/C:/Users/mufidjamaluddin/Documents/NetBeansProjects/Java-Thread-Email/explore_sending_email/src/id/ac/polban/jtk/oop/MainClass.java</file>
         </group>
     </open-files>
 </project-private>

@@ -102,6 +102,7 @@ public class EmailSender
         catch (MessagingException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
                  
         InternetAddress[] toAddress = new InternetAddress[messenger.size()];
@@ -137,7 +138,7 @@ public class EmailSender
             {
                 this.mimeMessage.setRecipient(Message.RecipientType.TO, toAddress[count]);
                 this.mimeMessage.setSubject(String.join(" ","Hi", receiver));
-                this.mimeMessage.setText(messenger.get(receiver));
+                this.mimeMessage.setContent(messenger.get(receiver), "text/html");
                 // message.setContent("<h1>sending html mail check</h1>","text/html" );  
                 this.transport.sendMessage(this.mimeMessage, this.mimeMessage.getRecipients(Message.RecipientType.TO));
 
@@ -175,7 +176,6 @@ public class EmailSender
     public boolean prepareSendMail(int jmlMessenger) 
     {
         this.jmlMessage = jmlMessenger;
-        boolean isSuccess;
         
         try 
         {
@@ -184,24 +184,25 @@ public class EmailSender
         catch (AddressException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } 
         catch (MessagingException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
                  
         try 
         {
             this.transport.connect(this.host, this.from, this.password);
-            isSuccess = true;
         } 
         catch (MessagingException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
+            return false;
         }
         
-        return isSuccess;
+        return true;
          
     }
     
@@ -213,7 +214,6 @@ public class EmailSender
      */
     public boolean sendOneEmail(String receiver, String message)
     {
-        boolean isSuccess = false;
         try 
         {
             InternetAddress toAddress = new InternetAddress(receiver);
@@ -224,17 +224,19 @@ public class EmailSender
             // message.setContent("<h1>sending html mail check</h1>","text/html" );  
             this.transport.sendMessage(this.mimeMessage, this.mimeMessage.getRecipients(Message.RecipientType.TO));
                 
-            isSuccess = true;
+            return true;
         } 
         catch (AddressException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } 
         catch (MessagingException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return isSuccess;
+        
     }
     
     /**
@@ -243,18 +245,16 @@ public class EmailSender
      */
     public boolean closeConnection()
     {
-        boolean isSuccess;
         try 
         {
             this.transport.close();
-            isSuccess = true;
+            return true;
         } 
         catch (MessagingException ex) 
         {
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
-            isSuccess = false;
+            return false;
         }
-        return isSuccess;
     }
             
 }
